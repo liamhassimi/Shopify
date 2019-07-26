@@ -34,6 +34,7 @@ class QuantityLimitCampaign
     cart.line_items.each do |item|
       if customer_has_tag 
         item.quantity = @limit
+        # ====================== OUTPUT MESSAGE HERE
         next
       end
       
@@ -42,8 +43,10 @@ class QuantityLimitCampaign
 
         if variant_count == 1 && item.quantity > 1
           item.quantity = @max_limit
+          # ====================== OUTPUT MESSAGE HERE
         elsif variant_count > 1
           item.quantity = @limit
+          # ====================== OUTPUT MESSAGE HERE
         end
         
       end
