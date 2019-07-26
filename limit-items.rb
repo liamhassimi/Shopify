@@ -32,21 +32,21 @@ class QuantityLimitCampaign
     customer_has_tag = !cart.customer.nil? and cart.customer.tags.include?(@customer_tag)
     
     cart.line_items.each do |item|
-      if customer_has_tag 
-        item.quantity = @limit
-        # ====================== OUTPUT MESSAGE HERE
-        next
-      end
-      
       if @trigger_type == 'product' && @trigger_id == item.variant.product.id
+        if customer_has_tag 
+          item.quantity = @limit
+          item.change_properties(item.properties, message: "Test") # = WHERE IS MESSAGE OUTPUT?
+          next
+        end
+        
         variant_count += 1
 
         if variant_count == 1 && item.quantity > 1
           item.quantity = @max_limit
-          # ====================== OUTPUT MESSAGE HERE
+          item.change_properties(item.properties, message: "Test 2") # = WHERE IS MESSAGE OUTPUT?
         elsif variant_count > 1
           item.quantity = @limit
-          # ====================== OUTPUT MESSAGE HERE
+          item.change_properties(item.properties, message: "Test 3") # = WHERE IS MESSAGE OUTPUT?
         end
         
       end
